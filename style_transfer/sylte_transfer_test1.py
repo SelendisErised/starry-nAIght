@@ -99,7 +99,7 @@ class StyleTransfer:
         self.content_weight = 1  # alpha
         self.style_weight = 1e6  # beta
         self.lr = 0.003
-        self.epoch = 1000
+        self.epoch = 2000
         # self.show_freq = 400
         self.content = load_image(content_path).to(self.device)
         # Resize style to match content
@@ -156,9 +156,10 @@ class StyleTransfer:
 
 
 if __name__ == '__main__':
-    content_img = 'images/space_needle.jpg'
-    style_img = 'images/delaunay.jpg'
+    content_img = 'images/sipsey_river_bridge.jpg'
+    style_img = 'images/the_scream.jpg'
     style_transfer = StyleTransfer(content_img, style_img)
     style_transfer.generate()
     plt.imshow(im_convert(style_transfer.target))
+    plt.savefig('results/result.jpg')
     plt.show()
