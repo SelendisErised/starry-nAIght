@@ -160,6 +160,7 @@ if __name__ == '__main__':
     style_img = 'images/the_scream.jpg'
     style_transfer = StyleTransfer(content_img, style_img)
     style_transfer.generate()
+    plt.axis('off')
     plt.imshow(im_convert(style_transfer.target))
-    plt.savefig('results/result.jpg')
+    plt.savefig('results/result.png', bbox_inches='tight', pad_inches=0.0)
     plt.show()
