@@ -14,6 +14,6 @@ This method is first published in [A Neural Algorithm of Artistic Style](https:/
 
 ### Example
 
-Here we provide a brief example of applying Edvard Munch's [**the Scream**](style_transfer/images/the_scream.jpy) to a photo of [Sipsey river bridge](style_transfer/images/the_scream.jpy).
+Here we provide a brief example of applying Edvard Munch's [**the Scream**](style_transfer/images/the_scream.jpg) to a photo of [Sipsey river bridge](style_transfer/images/the_scream.jpg).
 
 ![](style_transfer/results/result.png)
