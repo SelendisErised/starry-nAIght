@@ -85,7 +85,14 @@ def gram_matrix(tensor):
 
 
 class StyleTransfer:
-    def __init__(self, content_path, style_path, save_path):
+    def __init__(self, content_path, style_path, save_path, iter_time=100):
+        """
+        Style Transfer methods based on pretrained VGG19.
+        :param content_path: string, path to content image
+        :param style_path: string, path to style image
+        :param save_path: string, path to save the image
+        :param iter_time: int, iteration times, should be > 100
+        """
         self.target = None
         self.style_grams = None
         self.style_features = None
@@ -100,7 +107,7 @@ class StyleTransfer:
         self.content_weight = 1  # alpha
         self.style_weight = 1e3  # beta
         self.lr = 0.1
-        self.epoch = 100
+        self.epoch = iter_time
         self.content = load_img(content_path).to(self.device)
         # Resize style to match content
         self.style = load_img(style_path, shape=self.content.shape[-2:]).to(self.device)
@@ -165,10 +172,11 @@ if __name__ == '__main__':
     content_img = 'images/sipsey_river_bridge.jpg'
     style_img = 'images/the_scream.jpg'
     save_img = 'results/result.png'
+    iter_num = 100
     # After defining all the path, train the model and save the result
     start_time = datetime.datetime.now()
-    style_transfer = StyleTransfer(content_img, style_img, save_img)
+    style_transfer = StyleTransfer(content_img, style_img, save_img, iter_num)
     style_transfer.generate()
     style_transfer.save_result()
-    end_time = datetime.datetime.now()
-    print(end_time - start_time)
+    # end_time = datetime.datetime.now()
+    # print(end_time - start_time)
