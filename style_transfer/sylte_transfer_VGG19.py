@@ -6,6 +6,7 @@ import torch
 import torch.optim as optim
 import requests
 from torchvision import transforms, models
+import datetime
 
 
 def im_convert(tensor):
@@ -22,7 +23,7 @@ def im_convert(tensor):
     return image
 
 
-def load_image(img_path, max_size=400, shape=None):
+def load_img(img_path, max_size=400, shape=None):
     """
     Load in and transform an image to <= 400 pixels in the x-y dims
     :param img_path: path to the image
@@ -84,7 +85,7 @@ def gram_matrix(tensor):
 
 
 class StyleTransfer:
-    def __init__(self, content_path, style_path):
+    def __init__(self, content_path, style_path, save_path):
         self.target = None
         self.style_grams = None
         self.style_features = None
@@ -97,13 +98,13 @@ class StyleTransfer:
                               'conv4_1': 0.2,
                               'conv5_1': 0.2}
         self.content_weight = 1  # alpha
-        self.style_weight = 1e6  # beta
-        self.lr = 0.003
-        self.epoch = 2000
-        # self.show_freq = 400
-        self.content = load_image(content_path).to(self.device)
+        self.style_weight = 1e3  # beta
+        self.lr = 0.1
+        self.epoch = 100
+        self.content = load_img(content_path).to(self.device)
         # Resize style to match content
-        self.style = load_image(style_path, shape=self.content.shape[-2:]).to(self.device)
+        self.style = load_img(style_path, shape=self.content.shape[-2:]).to(self.device)
+        self.save_path = save_path
 
     def model_loading(self):
         """
@@ -149,18 +150,25 @@ class StyleTransfer:
             optimizer.zero_grad()
             total_loss.backward()
             optimizer.step()
-            # if time % self.show_freq == 0:
-            #     print('Total loss: ', total_loss.item())
-            #     plt.imshow(im_convert(self.target))
-            #     plt.show()
+
+    def save_result(self):
+        """
+        Save image
+        """
+        plt.axis('off')
+        plt.imshow(im_convert(style_transfer.target))
+        plt.savefig(self.save_path, bbox_inches='tight', pad_inches=0.0)
+        plt.show()
 
 
 if __name__ == '__main__':
     content_img = 'images/sipsey_river_bridge.jpg'
     style_img = 'images/the_scream.jpg'
-    style_transfer = StyleTransfer(content_img, style_img)
+    save_img = 'results/result.png'
+    # After defining all the path, train the model and save the result
+    start_time = datetime.datetime.now()
+    style_transfer = StyleTransfer(content_img, style_img, save_img)
     style_transfer.generate()
-    plt.axis('off')
-    plt.imshow(im_convert(style_transfer.target))
-    plt.savefig('results/result.png', bbox_inches='tight', pad_inches=0.0)
-    plt.show()
+    style_transfer.save_result()
+    end_time = datetime.datetime.now()
+    print(end_time - start_time)
