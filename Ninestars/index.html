@@ -96,15 +96,47 @@
             <img src="assets/img/about-img.svg" class="img-fluid" alt="" data-aos="zoom-in">
           </div>
           <div class="col-lg-6 pt-5 pt-lg-0">
-            <h3 data-aos="fade-up">Upload An Image & Pick A Style</h3>
+            <h3 data-aos="fade-up">Function A: Upload Cotent Image & Style Image</h3>
+            <div class="row">
+              <div class="col-md-6" data-aos="fade-up" data-aos-delay="100">
+                <br><br>
+                <h4>Upload Content Image</h4>
+                <br>
+                <!-- <button type = "button" class = "btn btn-get-started scrollto"  style = "background-color: #EB5D1F; color:white">Choose File</button> -->
+                <button onClick="onClickHandler1(event)" class = "btn btn-get-started scrollto"  style = "background-color: #EB5D1F; color:white">select an IMAGE</button>
+                <img src="" id="out1" />
+              </div>
+              <div class="col-md-6" data-aos="fade-up" data-aos-delay="200">
+               <br><br>
+                <h4>Upload Style Image</h4>
+                <br>
+                <!-- <button type = "button" class = "btn btn-get-started scrollto"  style = "background-color: #EB5D1F; color:white">Choose File</button> -->
+                <button onClick="onClickHandler2(event)" class = "btn btn-get-started scrollto"  style = "background-color: #EB5D1F; color:white">select an IMAGE</button>
+                <img src="" id="out2" />
+              </div>
+              <div class="col-md-6" data-aos="fade-up" data-aos-delay="200">
+                <button type="button" class="btn btn-get-started scrollto" style = "background-color: #EB5D1F; color:white">
+                  submit
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <div class="row justify-content-between">
+          <div class="col-lg-6 pt-5 pt-lg-0">
+            <h3 data-aos="fade-up">Funtion B: Upload An Image & Pick A Style</h3>
             <div class="row">
               <div class="col-md-6" data-aos="fade-up" data-aos-delay="100">
                 <br><br>
                 <h4>Upload an Image</h4>
                 <br>
                 <!-- <button type = "button" class = "btn btn-get-started scrollto"  style = "background-color: #EB5D1F; color:white">Choose File</button> -->
-                <button onClick="onClickHandler(event)" class = "btn btn-get-started scrollto"  style = "background-color: #EB5D1F; color:white">select an IMAGE</button>
-                <img src="" id="out" />
+                <button onClick="onClickHandler3(event)" class = "btn btn-get-started scrollto"  style = "background-color: #EB5D1F; color:white">select an IMAGE</button>
+                <img src="" id="out3" />
               </div>
               <div class="col-md-6" data-aos="fade-up" data-aos-delay="200">
                <br><br>
@@ -127,8 +159,11 @@
                 </button>
               </div>
             </div>
-            </div>
-            </div>
+          </div>
+          <div class="col-lg-5 d-flex align-items-center justify-content-center about-img">
+            <img src="assets/img/about-img.svg" class="img-fluid" alt="" data-aos="zoom-in">
+          </div>
+        </div>
       </div>
     </section>
     <!-- End About Section -->

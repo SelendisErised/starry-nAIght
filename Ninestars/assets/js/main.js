@@ -273,7 +273,7 @@ $(document).ready(function() {
   // document ready  
 });
 
-function onClickHandler(ev) {
+function onClickHandler1(ev) {
   var el = window._protected_reference = document.createElement("INPUT");
   el.type = "file";
   el.accept = "image/*";
@@ -285,7 +285,68 @@ function onClickHandler(ev) {
     
     // add first image, if available
     if (el.files.length) {
-      document.getElementById('out').src = URL.createObjectURL(el.files[0]);
+      document.getElementById('out1').src = URL.createObjectURL(el.files[0]);
+    }
+
+
+    // test some async handling
+    new Promise(function(resolve) {
+      setTimeout(function() { console.log(el.files); resolve(); }, 1000);
+    })
+    .then(function() {
+      // clear / free reference
+      el = window._protected_reference = undefined;
+    });
+
+  });
+
+  el.click(); // open
+}
+
+
+function onClickHandler2(ev) {
+  var el = window._protected_reference = document.createElement("INPUT");
+  el.type = "file";
+  el.accept = "image/*";
+  el.multiple = "multiple"; // remove to have a single file selection
+  
+  // (cancel will not trigger 'change')
+  el.addEventListener('change', function(ev2) {
+    // access el.files[] to do something with it (test its length!)
+    
+    // add first image, if available
+    if (el.files.length) {
+      document.getElementById('out2').src = URL.createObjectURL(el.files[0]);
+    }
+
+
+    // test some async handling
+    new Promise(function(resolve) {
+      setTimeout(function() { console.log(el.files); resolve(); }, 1000);
+    })
+    .then(function() {
+      // clear / free reference
+      el = window._protected_reference = undefined;
+    });
+
+  });
+
+  el.click(); // open
+}
+
+function onClickHandler3(ev) {
+  var el = window._protected_reference = document.createElement("INPUT");
+  el.type = "file";
+  el.accept = "image/*";
+  el.multiple = "multiple"; // remove to have a single file selection
+  
+  // (cancel will not trigger 'change')
+  el.addEventListener('change', function(ev2) {
+    // access el.files[] to do something with it (test its length!)
+    
+    // add first image, if available
+    if (el.files.length) {
+      document.getElementById('out3').src = URL.createObjectURL(el.files[0]);
     }
 
 

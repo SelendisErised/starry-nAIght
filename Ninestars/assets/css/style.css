@@ -1181,11 +1181,29 @@ section {
   }
 }
 
-#out {
+#out1 {
   width: 200px; height: 200px; object-fit: contain; display: block;
 }
 
 /* hide if it would show the error img */
-#out[src=''] {
+#out1[src=''] {
+  opacity: 0;
+}
+
+#out2 {
+  width: 200px; height: 200px; object-fit: contain; display: block;
+}
+
+/* hide if it would show the error img */
+#out2[src=''] {
+  opacity: 0;
+}
+
+#out3 {
+  width: 200px; height: 200px; object-fit: contain; display: block;
+}
+
+/* hide if it would show the error img */
+#out3[src=''] {
   opacity: 0;
 }
