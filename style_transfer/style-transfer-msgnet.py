@@ -212,23 +212,19 @@ def preprocess_batch(batch):
     batch = batch.transpose(0, 1)
     return batch
 
-
-if __name__ == '__main__':
-    style_model = Net(ngf=128)
-    try:
-      # load pre-trained weights
-      style_model.load_state_dict(torch.load('/content/21styles.model'), False)
-    except:
-      pass
-    # give the path to contect images and the style image
-    content_image = tensor_load_rgbimage('/content/golden_gate_bridge.jpg', size=512, keep_asp=True).unsqueeze(0)
-    style = tensor_load_rgbimage('/content/ben_passmore.jpg', size=512).unsqueeze(0)    
-    style = preprocess_batch(style)
-    style_v = Variable(style)
-    content_image = Variable(preprocess_batch(content_image))
-    style_model.setTarget(style_v)
-    output = style_model(content_image)
-    tensor_save_bgrimage(output.data[0], 'output.jpg', False)
-    # display the output image
-    display(Image.open('/content/output.jpg'))
+def style_apply(image, style_img, pre_trained = '/content/drive/MyDrive/21styles.model'):
+  style_model = Net(ngf=128)
+  try:
+    style_model.load_state_dict(torch.load(pre_trained), False)
+  except:
+    pass
+  content_image = tensor_load_rgbimage(image, size=512, keep_asp=True).unsqueeze(0)
+  style = tensor_load_rgbimage(style_img, size=512).unsqueeze(0)    
+  style = preprocess_batch(style)
+  style_v = Variable(style)
+  content_image = Variable(preprocess_batch(content_image))
+  style_model.setTarget(style_v)
+  output = style_model(content_image)
+  tensor_save_bgrimage(output.data[0], 'output.jpg', False)
+  display(Image.open('output.jpg'))
 
