@@ -163,9 +163,15 @@ class StyleTransfer:
         Save image
         """
         plt.axis('off')
-        plt.imshow(im_convert(style_transfer.target))
+        plt.imshow(im_convert(self.target))
         plt.savefig(self.save_path, bbox_inches='tight', pad_inches=0.0)
         plt.show()
+
+
+def generate_img(content_path, style_path, save_path, iter_time=100):
+    style_transfers = StyleTransfer(content_path, style_path, save_path, iter_time)
+    style_transfers.generate()
+    style_transfers.save_result()
 
 
 if __name__ == '__main__':
@@ -174,9 +180,6 @@ if __name__ == '__main__':
     save_img = 'results/result.png'
     iter_num = 100
     # After defining all the path, train the model and save the result
-    start_time = datetime.datetime.now()
-    style_transfer = StyleTransfer(content_img, style_img, save_img, iter_num)
-    style_transfer.generate()
-    style_transfer.save_result()
+    generate_img(content_img, style_img, save_img, iter_num)
     # end_time = datetime.datetime.now()
     # print(end_time - start_time)
