@@ -334,6 +334,10 @@ function onClickHandler2(ev) {
     if (el.files.length) {
       document.getElementById('out2').src = URL.createObjectURL(el.files[0]);
     }
+    var image = el.files[0];
+    createReader(image, function (w, h) {
+          alert("Width is: " + w + " And Height is: "+h);
+    });     
 
     // test some async handling
     new Promise(function(resolve) {
@@ -363,6 +367,10 @@ function onClickHandler3(ev) {
     if (el.files.length) {
       document.getElementById('out3').src = URL.createObjectURL(el.files[0]);
     }
+    var image = el.files[0];
+    createReader(image, function (w, h) {
+          alert("Width is: " + w + " And Height is: "+h);
+    });     
 
     // test some async handling
     new Promise(function(resolve) {
