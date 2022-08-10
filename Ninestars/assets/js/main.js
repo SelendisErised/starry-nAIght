@@ -287,7 +287,10 @@ function onClickHandler1(ev) {
     if (el.files.length) {
       document.getElementById('out1').src = URL.createObjectURL(el.files[0]);
     }
-
+    var image = el.files[0];
+          createReader(image, function (w, h) {
+                alert("Width is: " + w + " And Height is: "+h);
+          });           
 
     // test some async handling
     new Promise(function(resolve) {
@@ -303,6 +306,19 @@ function onClickHandler1(ev) {
   el.click(); // open
 }
 
+function  createReader(file, whenReady) {
+      var reader = new FileReader;
+      reader.onload = function (evt) {
+          var image = new Image();
+          image.onload = function (evt) {
+              var width = this.width;
+              var height = this.height;
+              if (whenReady) whenReady(width, height);
+          };
+          image.src = evt.target.result;
+      };
+      reader.readAsDataURL(file);
+  }
 
 function onClickHandler2(ev) {
   var el = window._protected_reference = document.createElement("INPUT");
@@ -318,7 +334,6 @@ function onClickHandler2(ev) {
     if (el.files.length) {
       document.getElementById('out2').src = URL.createObjectURL(el.files[0]);
     }
-
 
     // test some async handling
     new Promise(function(resolve) {
@@ -348,7 +363,6 @@ function onClickHandler3(ev) {
     if (el.files.length) {
       document.getElementById('out3').src = URL.createObjectURL(el.files[0]);
     }
-
 
     // test some async handling
     new Promise(function(resolve) {
