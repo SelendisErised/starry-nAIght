@@ -190,6 +190,7 @@ def tensor_load_rgbimage(filename, size=None, scale=None, keep_asp=False):
     img = torch.from_numpy(img).float()
     return img
 
+
 def tensor_save_rgbimage(tensor, filename, cuda=False):
     if cuda:
         img = tensor.clone().cpu().clamp(0, 255).numpy()
@@ -204,7 +205,8 @@ def tensor_save_bgrimage(tensor, filename, cuda=False):
     (b, g, r) = torch.chunk(tensor, 3)
     tensor = torch.cat((r, g, b))
     tensor_save_rgbimage(tensor, filename, cuda)
-    
+
+
 def preprocess_batch(batch):
     batch = batch.transpose(0, 1)
     (r, g, b) = torch.chunk(batch, 3)
@@ -212,19 +214,26 @@ def preprocess_batch(batch):
     batch = batch.transpose(0, 1)
     return batch
 
-def style_apply(image, style_img, pre_trained = '/content/drive/MyDrive/21styles.model'):
-  style_model = Net(ngf=128)
-  try:
-    style_model.load_state_dict(torch.load(pre_trained), False)
-  except:
-    pass
-  content_image = tensor_load_rgbimage(image, size=512, keep_asp=True).unsqueeze(0)
-  style = tensor_load_rgbimage(style_img, size=512).unsqueeze(0)    
-  style = preprocess_batch(style)
-  style_v = Variable(style)
-  content_image = Variable(preprocess_batch(content_image))
-  style_model.setTarget(style_v)
-  output = style_model(content_image)
-  tensor_save_bgrimage(output.data[0], 'output.jpg', False)
-  display(Image.open('output.jpg'))
 
+def style_apply(image, style_img, save_img, pre_trained='21styles.model'):
+    style_model = Net(ngf=128)
+    try:
+        style_model.load_state_dict(torch.load(pre_trained), False)
+    except:
+        pass
+    content_image = tensor_load_rgbimage(image, size=512, keep_asp=True).unsqueeze(0)
+    style = tensor_load_rgbimage(style_img, size=512).unsqueeze(0)
+    style = preprocess_batch(style)
+    style_v = Variable(style)
+    content_image = Variable(preprocess_batch(content_image))
+    style_model.setTarget(style_v)
+    output = style_model(content_image)
+    tensor_save_bgrimage(output.data[0], save_img, False)
+    # display(Image.open('output.jpg'))
+
+
+if __name__ == '__main__':
+    content_img = 'images/sipsey_river_bridge.jpg'
+    style_img = 'images/the_scream.jpg'
+    save_img = 'results/msg_output.png'
+    style_apply(content_img, style_img, save_img)
