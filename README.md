@@ -1,6 +1,6 @@
 # starry-nAIght
 
-Team Member: Zhuoyu Feng, Jinxuan Tang, Katie Jiang, Isabella Lu, Noah Hung
+Team Member: Zhuoyu Feng, Jinxuan Tang, Katie Jiang, Isabella Lu, Noah Hung, Srikar Vemuri
 
 ## Project Overview:
 
